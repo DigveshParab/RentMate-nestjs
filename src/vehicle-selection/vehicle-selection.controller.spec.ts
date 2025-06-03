@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { VehicleSelectionController } from './vehicle-selection.controller';
 
-describe('VehicleTypeController', () => {
+describe('VehicleSelectionController', () => {
   let controller: VehicleSelectionController;
 
   beforeEach(async () => {
