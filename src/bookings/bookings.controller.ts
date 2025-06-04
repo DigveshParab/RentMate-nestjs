@@ -10,17 +10,32 @@ export class BookingsController {
 
     @Post('create')
     async createBooking(
-        @Body() dto : CreateBookingDto,
-        @Res() res : Response
-    ){
+        @Body() dto: CreateBookingDto,
+        @Res() res: Response
+    ) {
         try {
             const result = await this.bookingService.createBooking(dto);
-            return res.status(HttpStatus.OK).json({error: false, message: result.message});
+
+            if (!result || result.error) {
+                return res.status(HttpStatus.BAD_REQUEST).json({
+                    error: true,
+                    message: result?.message || 'Booking could not be completed',
+                });
+            }
+
+            return res.status(HttpStatus.OK).json({
+                error: false,
+                message: result.message,
+            });
 
         } catch (err) {
-            return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error: true, message: err.message });
+            return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+                error: true,
+                message: err.message || 'Internal server error',
+            });
         }
     }
+
 
     @Post('check_availability')
     async checkAvailability(@Body() dto: CheckAvailabilityDto) {

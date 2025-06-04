@@ -24,14 +24,15 @@ export class BookingsService {
             });
 
             if (!booking) {
-            return { message: 'Booking failed to create' };
+            return { error: true, message: 'Booking failed to create' };
             }
 
-            return { message: 'Booking successful' };
+            return { error: false, message: 'Booking successful' };
         } catch (err) {
             throw new InternalServerErrorException('Error while booking');
         }
     }
+
 
 
     async checkAvailability(dto: CheckAvailabilityDto) {
